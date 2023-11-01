@@ -1,10 +1,9 @@
 from flask_restful import Api, Resource, reqparse
 from models.usuario import UserModel
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt
 from secrets import compare_digest
 from blocklist import BLOCKLIST
-from functools import wraps
-from flask import request
+from resources.user_level import role_required
 
 
 atributos_registro = reqparse.RequestParser()
@@ -16,20 +15,6 @@ atributos_login = reqparse.RequestParser()
 atributos_login.add_argument('login', type=str, required=True, help="The field 'login' cannot be blank")
 atributos_login.add_argument('senha', type=str, required=True, help="The field 'senha' cannot be blank")
 
-
-def role_required(*roles):
-    def wrapper(fn):
-        @wraps(fn)
-        def decorated_function(*args, **kwargs):
-            current_user_id = get_jwt_identity()
-            user = UserModel.find_user(current_user_id)
-            
-            if user.tipo_usuario in roles:
-                return fn(*args, **kwargs)
-            else:
-                return {'message': 'Unauthorized access for this user type'}, 403
-        return decorated_function
-    return wrapper
 
 
 #Classe do elemento
@@ -92,6 +77,3 @@ class UserLogout(Resource):
         jwt_id = get_jwt()['jti']
         BLOCKLIST.add(jwt_id)
         return {'message': "logged out successfully"},200
-
-
-
