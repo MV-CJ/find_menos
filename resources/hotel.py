@@ -107,8 +107,8 @@ class Hotel(Resource):
         except:
             return {'message': 'An internal error ocurred trying to save hotel'}, 500
         return hotel.json(), 201
-    
-    
+
+
     @jwt_required()
     def delete(self, hotel_id):
         hotel = HotelModel.find_hotel(hotel_id)
