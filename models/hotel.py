@@ -11,7 +11,7 @@ class HotelModel(banco.Model):
     cidade = banco.Column(banco.String(40))
     site_id = banco.Column(banco.Integer, banco.ForeignKey('sites.site_id'))
     
-    def __init__(self, hotel_id, nome, estrelas, diaria, cidade, site_id, url):
+    def __init__(self, hotel_id, nome, estrelas, diaria, cidade, site_id):
         self.hotel_id = hotel_id
         self.nome = nome
         self.estrelas = estrelas
@@ -26,7 +26,7 @@ class HotelModel(banco.Model):
                 'estrelas': self.estrelas,
                 'diaria': self.diaria,
                 'cidade': self.cidade,
-                'url': self.url
+                'site_id': self.site_id
         }
     
     @classmethod

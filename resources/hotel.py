@@ -3,8 +3,8 @@ from models.hotel import HotelModel
 from flask_jwt_extended import jwt_required
 from resources.normalize import normalize_path_params
 from models.site import SiteModel
+from resources.user_level import role_required
 import sqlite3
-
 
 normalize_path_params()
 
@@ -66,10 +66,13 @@ class Hotel(Resource):
 
     #Metodo de requisição (GET)
     @jwt_required()
-    def get(self, hotel_id):
-        hotel = HotelModel.find_hotel(hotel_id)
-        if hotel:
-            return hotel.json()
+    def get(self, hotel_id=None):
+        if hotel_id:
+            hotel = HotelModel.find_hotel(hotel_id)
+            if hotel:
+                return hotel.json()
+        else:
+            hotel = HotelModel.query.all()
         return {'message': 'Hotel not found'},404
     
     
