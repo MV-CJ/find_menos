@@ -121,4 +121,4 @@ class Hotel(Resource):
                 return {'message': 'Hotel is deleted'}
             except:
                 return {'message': 'An internal error ocurred trying to delete hotel'}, 500
-        return {'message': 'Hotel not found'}, 404
+        return {'message': 'Hotel not found'}, 404 
