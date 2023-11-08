@@ -65,7 +65,6 @@ class Hotel(Resource):
     argumentos.add_argument("site_id",type=int, required=True, help="Evry hotel needs to be iliked with a site")
 
     #Metodo de requisição (GET)
-    @jwt_required()
     def get(self, hotel_id=None):
         if hotel_id:
             hotel = HotelModel.find_hotel(hotel_id)
@@ -111,8 +110,8 @@ class Hotel(Resource):
             return {'message': 'An internal error ocurred trying to save hotel'}, 500
         return hotel.json(), 201
 
-
     @jwt_required()
+    @role_required(2,3)
     def delete(self, hotel_id):
         hotel = HotelModel.find_hotel(hotel_id)
         if hotel:
