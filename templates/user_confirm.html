@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Cadastro</title>
+
+    <!-- Adicionando Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Animação */
+        .fadeIn {
+            animation: fadeInAnimation 2s ease-in-out;
+        }
+        
+        @keyframes fadeInAnimation {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card fadeIn"> <!-- Adicionando a classe de animação -->
+            <div class="card-body text-center">
+                <img src="{{ url_for('static', filename='/findmenos_logo.png') }}" alt="Logo da Empresa" class="img-fluid mb-4" width="200" height="100">
+                <h1 class="card-title">Obrigado!</h1>
+                <p class="card-text">O seu e-mail <strong>{{ email }}</strong> foi confirmado com sucesso!</p>
+                <p class="card-text">O seu usuário <strong>{{ usuario }}</strong> está agora ativo.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adicionando Bootstrap JS e dependências -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
