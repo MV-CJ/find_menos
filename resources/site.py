@@ -13,11 +13,17 @@ class Sites(Resource):
         return {'sites': [site.json() for site in SiteModel.query.all()]}
     
 class Site(Resource):
+    @jwt_required()
     def get(self, url):
-        site=SiteModel.find_site(url)
-        if site:
-            return site.json()
-        return {'message':'Site not found.'}, 404
+        if url:
+            site=SiteModel.find_site(url)
+            if site:
+                return site.json()
+            return {'message': 'Site not found'}, 404
+        else:
+            sites = SiteModel.obter_todos_sites()
+            sites_list = [site.json() for site in sites]
+            return {'sites': sites_list}, 200
     
     @jwt_required()
     def post(self, url):
@@ -29,6 +35,10 @@ class Site(Resource):
         except:
             return{"message":"Error while creating the site."},500
         return site.json()
+    
+    @classmethod
+    def obter_todos_sites(cls):
+        return cls.query.all()      
     
     @jwt_required()
     @role_required(2,3)

@@ -4,6 +4,7 @@ from requests import post
 import re
 
 
+
 #Construtor
 class UserModel(banco.Model):
     __tablename__ = 'usuarios'

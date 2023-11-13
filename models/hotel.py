@@ -11,13 +11,13 @@ class HotelModel(banco.Model):
     cidade = banco.Column(banco.String(40))
     site_id = banco.Column(banco.Integer, banco.ForeignKey('sites.site_id'))
     
-    def __init__(self, hotel_id, nome, estrelas, diaria, cidade, site_id):
+    def __init__(self, hotel_id, nome, estrelas, diaria, cidade, url):
         self.hotel_id = hotel_id
         self.nome = nome
         self.estrelas = estrelas
         self.diaria = diaria
         self.cidade = cidade
-        self.site_id = site_id
+        self.url = url
 
 
     def json(self):
